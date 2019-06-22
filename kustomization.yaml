@@ -1,0 +1,5 @@
+namespace: wave-demo
+resources:
+  - config.yaml
+  - nginx.yaml
+  - nginx.service.yaml

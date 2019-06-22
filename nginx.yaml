@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  annotations:
+    wave.pusher.com/update-on-config-change: "true"
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+        - name: cfg
+          configMap:
+            name: application-config
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - name: http
+              containerPort: 80
+          volumeMounts:
+            - name: cfg
+              subPath: "index.html"
+              mountPath: /usr/share/nginx/html/index.html
